@@ -1,0 +1,15 @@
+.toggle-button {
+  -fx-background-color: #EEEEEE;
+  -fx-background-radius: 0;
+  -fx-border: none;
+  -fx-text-align: left;
+  -fx-font-size: 18px;
+}
+
+.toggle-button:selected {
+  -fx-background-color: #DDDDDD;
+  -fx-background-radius: 0;
+  -fx-border: none;
+  -fx-text-align: left;
+  -fx-font-size: 18px;
+}
