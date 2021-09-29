@@ -1,7 +1,12 @@
 package com.example.javafx_task;
 
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -10,6 +15,7 @@ import javafx.util.StringConverter;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 
 public class ViewInputController {
@@ -45,6 +51,21 @@ public class ViewInputController {
                 }
             }
         });
+
+        birthdayInput.getEditor().textProperty().addListener((observableValue, s, dateString) -> {
+            if (dateString.matches("^\\d{2}.\\d{2}.\\d{4}$")) {
+                try {
+                    LocalDate localDate = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+                    birthdayInput.setValue(localDate);
+                } catch (DateTimeParseException dateTimeParseException) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Ungültiges Datum!");
+                    alert.setHeaderText(null);
+                    alert.setContentText(dateTimeParseException.getMessage());
+                    alert.showAndWait();
+                }
+            }
+            });
     }
 
     public String getEnteredName() {
